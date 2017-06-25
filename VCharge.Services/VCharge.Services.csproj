@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VCharge.Models\VCharge.Models.csproj" />
+    <ProjectReference Include="..\VCharge.Repositories\VCharge.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

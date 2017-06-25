@@ -5,7 +5,7 @@ using VCharge.Models;
 using VCharge.Repositories;
 using Xunit;
 
-namespace VCharge.UnitTests
+namespace VCharge.UnitTests.Repositories
 {
     public class MeterReadingsRepositoryTests
     {
