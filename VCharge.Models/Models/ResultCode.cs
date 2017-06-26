@@ -1,4 +1,4 @@
-﻿namespace VCharge.Models
+﻿namespace VCharge.Models.Models
 {
     public enum ResultCode
     {

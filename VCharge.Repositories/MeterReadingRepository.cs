@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using VCharge.Models;
+using VCharge.Models.Models;
 
 namespace VCharge.Repositories
 {

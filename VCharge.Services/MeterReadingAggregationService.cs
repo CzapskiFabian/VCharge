@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using VCharge.Models;
+using VCharge.Models.Models;
 using VCharge.Repositories;
 using VCharge.Services.Extensions;
 

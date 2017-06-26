@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using VCharge.Repositories;
 using VCharge.Services;
 
@@ -20,6 +19,8 @@ namespace VCharge.Infrastructure
             services.AddTransient<IMeterReaderService, MeterReaderService>();
             return services;
         }
+
+
     }
 
 }

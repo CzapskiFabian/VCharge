@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using VCharge.Models;
+using VCharge.Models.Models;
 
 namespace VCharge.Services
 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +33,7 @@ namespace VCharge.WebClient
             services.AddMvc();
 
             // Add Container Logic
+            services.AddAutoMapper();
             services.AddMeterDataRepository();
             services.AddInternalServices();
         }

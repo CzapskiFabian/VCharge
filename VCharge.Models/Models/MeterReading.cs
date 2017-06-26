@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VCharge.Models
+namespace VCharge.Models.Models
 {
     public class MeterReading
     {

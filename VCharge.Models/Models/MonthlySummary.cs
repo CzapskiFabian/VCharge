@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace VCharge.Models
+namespace VCharge.Models.Models
 {
     public class MonthlySummary
     {

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using VCharge.Models;
+using VCharge.Models.Models;
 using VCharge.Services;
 
 namespace VCharge.UnitTests.Services

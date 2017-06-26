@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using VCharge.Models;
+using VCharge.Models.Models;
 using VCharge.Services.Extensions;
 using Xunit;
 

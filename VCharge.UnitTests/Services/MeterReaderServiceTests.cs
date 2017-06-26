@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Moq;
 using VCharge.Models;
+using VCharge.Models.Models;
 using VCharge.Repositories;
 using VCharge.Services;
 using Xunit;

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\VCharge.Repositories\VCharge.Repositories.csproj" />
     <ProjectReference Include="..\VCharge.Services\VCharge.Services.csproj" />
   </ItemGroup>
