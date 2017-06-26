@@ -1,0 +1,61 @@
+﻿@using Newtonsoft.Json
+@using VCharge.Services.Extensions
+@model IEnumerable<VCharge.Models.Models.MonthlySummary>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<table id="datatable" class="table">
+    <thead>
+        <tr>
+            <th>Month</th>
+            <th>Usage (kWh)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var summary in Model)
+        {
+            <tr>
+                <th>@summary.DateMonthStart.ToString("MMM yy")</th>
+                <td>@summary.TotalKwh()</td>
+            </tr>
+        }
+       
+    </tbody>
+</table>
+
+
+<script>
+    Highcharts.chart('container', {
+        data: {
+            table: 'datatable'
+        },
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Monthly Usage Data'
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'kWh'
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' +
+                    this.series.name +
+                    '</b><br/>' +
+                    this.point.y + " kWh"
+            }
+        }
+    });
+</script>
+
+
