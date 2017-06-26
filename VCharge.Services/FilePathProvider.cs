@@ -8,7 +8,7 @@ namespace VCharge.Services
     {
         public string GetPath()
         {
-            return "MeterData.csv";
+            return "../VCharge.UnitTests/TestData/MeterData.csv";
         }
     }
 }

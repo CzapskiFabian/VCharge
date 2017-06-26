@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using VCharge.Models;
 using VCharge.Repositories;
+using VCharge.Services.Extensions;
 
 namespace VCharge.Services
 {
@@ -13,31 +14,38 @@ namespace VCharge.Services
     {
         public IEnumerable<MonthlySummary> GetMonthlyData(IEnumerable<MeterReading> dayReadings)
         {
-            // Ealierst date in the month is the base line
-
-            var monthlySummariesDict = new Dictionary<int, MonthlySummary>();
+            var monthlySummariesDict = new Dictionary<string, MonthlySummary>();
 
             foreach (var reading in dayReadings)
             {
-                if (!monthlySummariesDict.ContainsKey(reading.Date.Month))
-                {
-                    monthlySummariesDict.Add(reading.Date.Month, new MonthlySummary
-                    {
-                        DateMonthStart = new DateTime(reading.Date.Year, reading.Date.Month, 1),
-                        KwhUsageAtMonthStart = reading.CumulativeConsumption
-                    });
-                }
-                monthlySummariesDict[reading.Date.Month].KwhUsageAtMonthEnd = reading.CumulativeConsumption;
+                AddReadingToMonthlySummary(monthlySummariesDict, reading);
             }
-
             return monthlySummariesDict.Values;
         }
 
-        public double GetUsageBetweenDates(IEnumerable<MeterReading> dayReadings, DateTime startDate, DateTime endDate)
+        private void AddReadingToMonthlySummary(Dictionary<string, MonthlySummary> monthlySummariesDict, MeterReading reading)
+        {
+            if (!monthlySummariesDict.ContainsKey(reading.Date.GetMonthKey()))
+            {
+                if (monthlySummariesDict.Count > 0)
+                {
+                    monthlySummariesDict[reading.Date.AddDays(-1).GetMonthKey()].KwhUsageAtMonthEnd =
+                        reading.CumulativeConsumption;
+                }
+                monthlySummariesDict.Add(reading.Date.GetMonthKey(), new MonthlySummary
+                {
+                    DateMonthStart = new DateTime(reading.Date.Year, reading.Date.Month, 1),
+                    KwhUsageAtMonthStart = reading.CumulativeConsumption
+                });
+            }
+            monthlySummariesDict[reading.Date.GetMonthKey()].KwhUsageAtMonthEnd = reading.CumulativeConsumption;
+        }
+
+        public decimal GetUsageBetweenDates(IEnumerable<MeterReading> dayReadings, DateTime startDate, DateTime endDate)
         {
             var first = true;
-            var firstReading = 0.0;
-            var lastReading = 0.0;
+            decimal firstReading = 0;
+            decimal lastReading = 0;
 
             var meterReadings = dayReadings as IList<MeterReading> ?? dayReadings.ToList();
             if (!meterReadings.Any() || (meterReadings[0].Date > startDate))
@@ -47,20 +55,26 @@ namespace VCharge.Services
 
             foreach (var reading in meterReadings)
             {
-                if (first && reading.Date>=startDate)
+                if (reading.Date >= startDate)
                 {
+                    if (first)
+                    {
 
-                    firstReading = lastReading = reading.CumulativeConsumption;
-                    first = false;
+                        firstReading = lastReading = reading.CumulativeConsumption;
+                        first = false;
+                    }
+
+                    lastReading = reading.CumulativeConsumption;
                 }
 
                 if (reading.Date > endDate)
                     break;
-
-                lastReading = reading.CumulativeConsumption;
             }
 
             return lastReading - firstReading;
         }
+
+
+
     }
 }

@@ -31,8 +31,9 @@ namespace VCharge.WebClient
             // Add framework services.
             services.AddMvc();
 
-            // Add Container Logix
+            // Add Container Logic
             services.AddMeterDataRepository();
+            services.AddInternalServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

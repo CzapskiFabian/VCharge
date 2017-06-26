@@ -7,9 +7,14 @@ namespace VCharge.Services.Extensions
 {
     public static class MonthlySummaryExtensions
     {
-        public static double TotalKwh(this MonthlySummary summary)
+        public static decimal TotalKwh(this MonthlySummary summary)
         {
             return summary.KwhUsageAtMonthEnd - summary.KwhUsageAtMonthStart;
+        }
+
+        public static string GetMonthKey(this DateTime dateTime)
+        {
+            return dateTime.Year + "/" + dateTime.Month;
         }
     }
 }

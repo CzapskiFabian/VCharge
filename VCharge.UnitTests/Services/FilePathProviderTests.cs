@@ -18,7 +18,7 @@ namespace VCharge.UnitTests.Services
             var result = service.GetPath();
 
             // assert
-            Assert.Equal("MeterData.csv", result);
+            Assert.Equal("../VCharge.UnitTests/TestData/MeterData.csv", result);
         }
     }
 }

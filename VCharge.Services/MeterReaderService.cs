@@ -37,7 +37,7 @@ namespace VCharge.Services
 
         }
 
-        public ServiceResult<double> GetUsageForDates(DateTime startDate, DateTime endDate)
+        public ServiceResult<decimal> GetUsageForDates(DateTime startDate, DateTime endDate)
         {
             try
             {
@@ -45,14 +45,33 @@ namespace VCharge.Services
                 var meterReadings = _meterReadingsRepository.GetMeterReadings(pathToFile);
                 var monthlySummaries = _meterReadingAggregationService.GetUsageBetweenDates(meterReadings, startDate, endDate);
 
-                return new ServiceResult<double>(monthlySummaries);
+                return new ServiceResult<decimal>(monthlySummaries);
             }
             catch (Exception ex)
             {
                 // TODO: Log exception. Perhaps out of scope for this project
 
-                return new ServiceResult<double>(ex, "Server Error");
+                return new ServiceResult<decimal>(ex, "Server Error");
             }
         }
+
+        public ServiceResult<IEnumerable<MonthlySummary>> GetMonthlySummariesForDates(DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var pathToFile = _filePathProvider.GetPath();
+                var meterReadings = _meterReadingsRepository.GetMeterReadingsForDates(pathToFile, startDate, endDate);
+                var monthlySummaries = _meterReadingAggregationService.GetMonthlyData(meterReadings);
+
+                return new ServiceResult<IEnumerable<MonthlySummary>>(monthlySummaries);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Log exception. Perhaps out of scope for this project
+
+                return new ServiceResult<IEnumerable<MonthlySummary>>(ex, "Server Error");
+            }
+        }
+
     }
 }

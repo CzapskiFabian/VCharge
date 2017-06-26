@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using VCharge.Services;
 
 namespace VCharge.WebClient.Controllers
 {
     public class HomeController : Controller
     {
+        private IMeterReaderService _meterReader;
+        public HomeController(IMeterReaderService meterReader)
+        {
+            _meterReader = meterReader;
+        }
         public IActionResult Index()
         {
+            var result = _meterReader.GetMonthlySummaries();
             return View();
         }
 

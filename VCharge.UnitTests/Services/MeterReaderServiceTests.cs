@@ -74,5 +74,40 @@ namespace VCharge.UnitTests.Services
             // assert
             Assert.Equal(ResultCode.Error, result.ResultCode);
         }
+
+        [Fact]
+        public void GetMonthlySummariesForDates_Should_Return_ResultOfCallingAppropriateServices()
+        {
+            // arrange
+            MockFilePathProvider.Setup(x => x.GetPath()).Returns("path");
+            var meterReadings = new List<MeterReading>();
+            var startDate = new DateTime();
+            var endDate = new DateTime();
+            MockRepo.Setup(x => x.GetMeterReadingsForDates("path", startDate, endDate)).Returns(meterReadings);
+            var monthlyData = new List<MonthlySummary>();
+            MockAggregateService.Setup(x => x.GetMonthlyData(meterReadings)).Returns(monthlyData);
+
+            // act
+            var result = SystemUnderTest.GetMonthlySummariesForDates(startDate, endDate);
+
+            // assert
+            Assert.Equal(monthlyData, result.Value);
+            Assert.Equal(ResultCode.Ok, result.ResultCode);
+        }
+
+        [Fact]
+        public void GetMonthlySummariesForDates_Should_Return_ErrorResultOnInternalServerException()
+        {
+            // arrange
+            MockFilePathProvider.Setup(x => x.GetPath()).Throws(new Exception());
+
+            // act
+            var result = SystemUnderTest.GetMonthlySummariesForDates(new DateTime(), new DateTime());
+
+            // assert
+            Assert.Equal(ResultCode.Error, result.ResultCode);
+        }
+
+
     }
 }

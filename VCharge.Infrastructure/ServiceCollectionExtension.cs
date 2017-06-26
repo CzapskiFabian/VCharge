@@ -12,6 +12,14 @@ namespace VCharge.Infrastructure
             services.AddTransient<IMeterReadingsRepository, MeterReadingRepository>();
             return services;
         }
+
+        public static IServiceCollection AddInternalServices(this IServiceCollection services)
+        {
+            services.AddTransient<IFilePathProvider, FilePathProvider>();
+            services.AddTransient<IMeterReadingAggregationService, MeterReadingAggregationService>();
+            services.AddTransient<IMeterReaderService, MeterReaderService>();
+            return services;
+        }
     }
 
 }

@@ -15,7 +15,7 @@ namespace VCharge.UnitTests.Services
         [InlineData(10.0, 100.0, 90.0)]
         [InlineData(0.5, 10.0, 9.5)]
         [InlineData(2.0, 18.0, 16.0)]
-        public void TotalKwh_Should_Return_CorrentValue(double startValue, double endValue, double expected)
+        public void TotalKwh_Should_Return_CorrentValue(decimal startValue, decimal endValue, decimal expected)
         {
             // arrange
             var monthlySummary = new MonthlySummary
